@@ -293,7 +293,9 @@
       const fileCache = {};
       const imgCache = {};
       const chatMessageCache = {};
-      const currentUserName = prompt("Enter your full name according to Google Chat");
+      const currentUserName = prompt(
+        "Enter your full name according to Google Chat",
+      );
 
       const extensionRegex = /\.[0-9a-z]+$/i;
 
@@ -428,7 +430,7 @@
 
       async function showChatList() {
         await pickDirectory();
-        console.log("Chats loaded");
+        // console.log("Chats loaded");
 
         const chatList = $("#chatList");
 
@@ -486,7 +488,7 @@
         chatList,
         prefix = "",
       ) {
-        console.log("Looking for chats in ", directoryHandle.name);
+        // console.log("Looking for chats in ", directoryHandle.name);
         for await (const entry of directoryHandle.values()) {
           const itemPath = `${prefix}${entry.name}`;
           // console.log("processing ", itemPath);
@@ -523,7 +525,7 @@
 
       async function readAndDisplayJsonFile(chatId, opts = {}) {
         if (!(chatId in chatMessageCache)) {
-          console.log(`Reading and parsing ${chatId} messages.json`);
+          // console.log(`Reading and parsing ${chatId} messages.json`);
           const entry = chatMessageFiles[chatId];
 
           $("#chat_header").text(getChatMembersTitle(chatId)).show();
@@ -564,7 +566,7 @@
 
         const end = Math.min(start + max, json.messages.length);
 
-        console.log(`Displaying ${max} messages from ${start} to ${end}`);
+        // console.log(`Displaying ${max} messages from ${start} to ${end}`);
 
         for (let i = start; i < end; i++) {
           const msg = json.messages[i];
@@ -573,9 +575,6 @@
           if (imagesOnly && !("attached_files" in msg)) continue;
 
           // ===== MESSAGE DIV =====
-          if(currentUserName == null){
-            return prompt("Name is required to view messages. Please reload and enter your full name according to Google Chat");
-          }
           const messageDiv = document.createElement("div");
           messageDiv.className =
             msg.creator.name === currentUserName
@@ -637,6 +636,11 @@
       }
 
       $(document).ready(function () {
+        if (currentUserName == null) {
+          return prompt(
+            "Name is required to view messages. Please reload and enter your full name according to Google Chat",
+          );
+        }
         $("#select-directory").click(showChatList);
       });
     </script>
