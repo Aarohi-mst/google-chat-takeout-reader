@@ -573,6 +573,9 @@
           if (imagesOnly && !("attached_files" in msg)) continue;
 
           // ===== MESSAGE DIV =====
+          if(currentUserName == null){
+            return prompt("Name is required to view messages. Please reload and enter your full name according to Google Chat");
+          }
           const messageDiv = document.createElement("div");
           messageDiv.className =
             msg.creator.name === currentUserName
