@@ -293,6 +293,7 @@
       const fileCache = {};
       const imgCache = {};
       const chatMessageCache = {};
+      const currentUserName = prompt("Enter your full name according to Google Chat");
 
       const extensionRegex = /\.[0-9a-z]+$/i;
 
@@ -574,7 +575,7 @@
           // ===== MESSAGE DIV =====
           const messageDiv = document.createElement("div");
           messageDiv.className =
-            msg.creator.name === "Aarohi Verma"
+            msg.creator.name === currentUserName
               ? "message sent"
               : "message received";
 
